@@ -1,8 +1,8 @@
 package services
 
 import (
-	"rest/cmd/utils"
 	"rest/cmd/domain"
+	"rest/cmd/utils"
 )
 
 // GetUser ...

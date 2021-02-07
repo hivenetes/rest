@@ -16,17 +16,17 @@ func GetUser(resp http.ResponseWriter, req *http.Request) {
 	if err != nil {
 
 		apiErr := &utils.ApplicationError{
-			Message: fmt.Sprintf("user %v not found", userID),
+			Message:    fmt.Sprintf("user %v not found", userID),
 			StatusCode: http.StatusNotFound,
 		}
-		jsonValue, _  := json.Marshal(apiErr)
+		jsonValue, _ := json.Marshal(apiErr)
 		resp.WriteHeader(apiErr.StatusCode)
 		resp.Write(jsonValue)
 		return
 	}
 	user, apiErr := services.GetUser(userID)
 	if apiErr != nil {
-		jsonValue, _  := json.Marshal(apiErr)
+		jsonValue, _ := json.Marshal(apiErr)
 		resp.WriteHeader(apiErr.StatusCode)
 		resp.Write(jsonValue)
 		return

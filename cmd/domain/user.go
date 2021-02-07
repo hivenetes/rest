@@ -1,8 +1,5 @@
 package domain
 
-import (
-)
-
 // User type
 type User struct {
 	ID        uint64 `json:"id"`
