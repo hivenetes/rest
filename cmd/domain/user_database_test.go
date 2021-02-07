@@ -7,7 +7,7 @@ import (
 )
 
 func TestGetUserNoUserFound(t *testing.T) {
-	user, err := GetUser(0)
+	user, err := UserDatabase.GetUser(0)
 
 	assert.Nil(t, user, "user not found")
 	assert.NotNil(t, err)
@@ -16,7 +16,7 @@ func TestGetUserNoUserFound(t *testing.T) {
 }
 
 func TestGetUserFound(t *testing.T) {
-	user, err := GetUser(123)
+	user, err := UserDatabase.GetUser(123)
 
 	assert.Nil(t, err)
 	assert.NotNil(t, user)
@@ -26,8 +26,8 @@ func TestGetUserFound(t *testing.T) {
 	assert.EqualValues(t, "abs@mail.com", user.Email)
 }
 
-func BenchmarkGetUserFound(b *testing.B){
+func BenchmarkGetUserFound(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		GetUser(123)
+		UserDatabase.GetUser(123)
 	}
 }

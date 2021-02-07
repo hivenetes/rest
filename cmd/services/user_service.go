@@ -5,7 +5,15 @@ import (
 	"rest/cmd/utils"
 )
 
+type userService struct {
+}
+
+// UserService ...
+var (
+	UserService userService
+)
+
 // GetUser ...
-func GetUser(userID int64) (*domain.User, *utils.ApplicationError) {
-	return domain.GetUser(userID)
+func (u *userService) GetUser(userID int64) (*domain.User, *utils.ApplicationError) {
+	return domain.UserDatabase.GetUser(userID)
 }
