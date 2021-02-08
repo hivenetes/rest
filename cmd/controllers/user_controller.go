@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"encoding/json"
 	"fmt"
+	"github.com/gin-gonic/gin"
 	"net/http"
 	"rest/cmd/services"
 	"rest/cmd/utils"
@@ -10,27 +10,21 @@ import (
 )
 
 // GetUser ...
-func GetUser(resp http.ResponseWriter, req *http.Request) {
+func GetUser(c *gin.Context) {
 
-	userID, err := strconv.ParseInt(req.URL.Query().Get("user_id"), 10, 64)
+	userID, err := strconv.ParseInt(c.Param("user_id"), 10, 64)
 	if err != nil {
-
 		apiErr := &utils.ApplicationError{
 			Message:    fmt.Sprintf("user %v not found", userID),
 			StatusCode: http.StatusNotFound,
 		}
-		jsonValue, _ := json.Marshal(apiErr)
-		resp.WriteHeader(apiErr.StatusCode)
-		resp.Write(jsonValue)
+		utils.RespondErr(c, apiErr)
 		return
 	}
 	user, apiErr := services.UserService.GetUser(userID)
 	if apiErr != nil {
-		jsonValue, _ := json.Marshal(apiErr)
-		resp.WriteHeader(apiErr.StatusCode)
-		resp.Write(jsonValue)
+		utils.RespondErr(c, apiErr)
 		return
 	}
-	payload, _ := json.Marshal(user)
-	resp.Write(payload)
+	utils.Respond(c, http.StatusOK, user)
 }

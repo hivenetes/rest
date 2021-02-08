@@ -16,7 +16,6 @@ var (
 	getUserFunction  func(userID int64) (*domain.User, *utils.ApplicationError)
 )
 
-
 func (m *userDatabaseMock) GetUser(userID int64) (*domain.User, *utils.ApplicationError) {
 	return getUserFunction(userID)
 }
